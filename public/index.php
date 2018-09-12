@@ -25,7 +25,7 @@ MyCode\Core\Router::createRoute("/else", function() {
 MyCode\Core\Router::createRoute("/autor", function() {
     echo "by: Pedro Henrique Masato Enju";
 });
-MyCode\Core\Router::createRoute("/", function() {
+MyCode\Core\Router::createRoute("/zero", function() {
 
     $conn = MyCode\Services\Singleton::getInstance()->getPDO();
     
@@ -36,3 +36,32 @@ MyCode\Core\Router::createRoute("/", function() {
 });
 
 MyCode\Core\Router::executeRoute($route);
+
+
+require_once 'MyApp/autoload.php';
+  $rota = $_SERVER['REQUEST_URI'];
+ 
+  MyApp\Core\Router::createRoute("/doo", function(){
+      $f = new MyApp\Core\HelloWorld();
+      $f->doSomething();
+  });
+  
+  MyApp\Core\Router::createRoute("/elsee", function(){
+      $f = new MyApp\Core\HelloWorld();
+      $f->doSomethingElse();
+  });
+  
+  MyApp\Core\Router::createRoute("/blah", function(){
+      echo "Oi eu sou outra rota!";
+  });
+  
+  MyApp\Core\Router::createRoute("/", function(){
+      
+    $conn = \MyApp\Services\Singleton::getInstance()->getPdo();
+      
+      $dao = new MyApp\Dao\DaoUser($conn);
+      $dao->getAllUsers();
+      echo "Wellcome";
+  });
+  
+  MyApp\Core\Router::executeRoute($rota);
